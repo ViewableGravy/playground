@@ -1,0 +1,93 @@
+.PreviewCard {
+  --width: 550px;
+  --height: 300px;
+  
+  position: relative;
+  overflow: hidden;
+  
+  border-radius: 30px;
+  width: var(--width);
+  height: var(--height);
+  
+  cursor: pointer;
+
+  &__Tab {
+    transition: opacity 0.5s;
+    opacity: 0;
+
+    &--active {
+      opacity: 1;
+    }
+  }
+
+  &__HoverOutline {
+    border-radius: 37px;
+    border: 2px solid transparent;
+    padding: 5px;
+    transition: border 0.2s;
+
+    &--hovered {
+      border: 2px solid rgba(255, 255, 255, 0.736);
+    }
+  }
+
+  &__TabImage {
+    width: 100%;
+    transition: transform 0.5s;
+
+    &--hovered {
+      transform: scale(1.1);
+    }
+  }
+
+  &__ImageContainer {
+    position: absolute;
+    inset: 0;
+    background-color: black;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__TabContent {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+
+    text-align: left;
+    font-size: 35px;
+    font-weight: bold;
+    padding-left: 28px;
+    padding-bottom: 40px;
+  }
+
+  &__Outlet {
+    position: absolute;
+    bottom: 25px;
+    left: 30px;
+    
+    display: flex;
+    gap: 8px;
+    
+    &Item {
+      background-color: rgba(255, 255, 255, 0.531);
+      border-radius: 5px;
+      width: 10px;
+      height: 10px;
+
+      transition: width 0.2s ease-in-out, background-color 0.2s ease-in-out;
+
+      &--active {
+        background-color: white;
+        width: 22px;
+      }
+    }
+  }
+}
