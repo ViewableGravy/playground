@@ -10,6 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-router": "^1.36.3",
+    "@tanstack/router-devtools": "^1.36.3",
+    "@tanstack/router-vite-plugin": "^1.38.0",
+    "@tanstack/start": "^1.38.0",
+    "@types/node": "^20.14.2",
     "classnames": "^2.5.1",
     "install": "^0.13.0",
     "react": "rc",

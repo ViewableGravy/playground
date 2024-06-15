@@ -1,18 +1,29 @@
 /***** BASE IMPORTS *****/
 import classNames from "classnames";
-import { CSSProperties, useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
+
+/***** UTILITIES *****/
+import { useStyle } from "../../../../utilities/hooks/useStyle";
 
 /***** IMPORTS *****/
 import { PreviewCardContext } from "../context";
+
+/***** TYPE IMPORTS *****/
+import type { ValueOf } from "src/global";
+
+/***** CONSTS *****/
 import '../_PreviewCard.scss'
 
 /***** TYPE DEFINITIONS *****/
 type PreviewCard = React.FC<{
   children: React.ReactNode
   className?: string
-  width?: number
-  height?: number
+  width?: ValueOf<ReturnType<typeof useStyle>>
+  height?: ValueOf<ReturnType<typeof useStyle>>
 }>
+
+export const useIsomorphicLayoutEffect =
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
 /***** COMPONENT START *****/
 export const _PreviewCard: PreviewCard = ({ children, className, width, height }) => {
@@ -34,6 +45,8 @@ export const _PreviewCard: PreviewCard = ({ children, className, width, height }
     return () => clearInterval(interval);
   }, [tabs])
 
+  const style = useStyle({ height, width })
+
   /***** RENDER HELPERS *****/
   const classes = {
     inner: classNames("PreviewCard"),
@@ -41,11 +54,6 @@ export const _PreviewCard: PreviewCard = ({ children, className, width, height }
       "PreviewCard__HoverOutline--hovered": hovered
     })
   }
-
-  const style = {
-    '--height': height ? `${height}px` : undefined,
-    '--width': width ? `${width}px` : undefined
-  } as CSSProperties
 
   const context = {
     hovered,

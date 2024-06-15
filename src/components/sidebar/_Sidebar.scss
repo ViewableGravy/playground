@@ -1,0 +1,49 @@
+.Sidebar {
+  width: 300px;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  min-height: 700px;
+  background-color: #1425339e;
+  padding-inline: 20px;
+  box-shadow: 0px 0px 6px #00d0ff75;
+
+  &__title {
+    margin-top: 50px;
+    font-size: 30px;
+    text-align: left;
+    color: #019af5;
+  }
+
+  &__search {
+    width: 100%;
+    border-radius: 5px;
+    height: 30px;
+    border: none;
+    background-color: #1e3648;
+    padding-inline: 10px;
+  }
+
+  &__link {
+    font-size: 20px;
+    text-align: left;
+    color: #898989;
+    transition: color 0.3s;
+    display: block;
+
+    &:hover {
+      color: #43c3ff; 
+    }
+
+    &:first-of-type {
+      margin-top: 10px;
+    }
+
+    &.active {
+      color: #a7e3ff;
+
+      &:hover {
+        color: #43c3ff;
+      }
+    }
+  }
+}
