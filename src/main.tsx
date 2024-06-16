@@ -9,7 +9,7 @@ import { RouterProvider } from '@tanstack/react-router'
 /***** CONSTS *****/
 import './_Main.scss'
 
-const router = createRouter()
+export const router = createRouter()
 
 /***** RENDER *****/
 ReactDOM.createRoot(document.getElementById('root')!).render(
