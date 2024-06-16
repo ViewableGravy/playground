@@ -10,10 +10,18 @@ type RoutePaths = RoutePathsHelper<RegisteredRouter['routeTree']>
 type BooleanRouteConfig = boolean
 type ObjectRouteConfig = {
   active: boolean,
-  redirect?: string,
+  redirect?: RoutePaths,
 }
 type FullObjectRouteConfig = Required<ObjectRouteConfig>
 type RouteConfig = BooleanRouteConfig | ObjectRouteConfig
+type RouteOptions = RootRouteOptions<any, any, any, any, any, any, any, any>
+type PathObject = { path: RoutePaths }
+type Selector<T> = (config: FullObjectRouteConfig) => T
+type Select = <T = FullObjectRouteConfig>(selector?: Selector<T>) => NoInfer<T>
+type Result = {
+  throw: () => void
+  select: Select
+}
 
 const routes: Record<RoutePaths, RouteConfig> = {
   "/": true,
@@ -36,9 +44,6 @@ function castToObjectRouteconfig(config: RouteConfig): FullObjectRouteConfig {
     redirect: "/"
   }, config)
 }
-
-type RouteOptions = RootRouteOptions<any, any, any, any, any, any, any, any>
-type PathObject = { path: RoutePaths }
 
 export const routeConfig = {
   /**
@@ -74,22 +79,9 @@ export const routeConfig = {
    * than the path at which the route is being checked (ie. checked at `/` but the route is `/test` which is a child). If the location is
    * passed when the parent is meant to be accessible then the user may be redirected instead of being shown a 404 for example
    */
-  isRouteActive: <This extends RouteOptions | PathObject = PathObject>(options: This) => {
-    /***** TYPE DEFINITIONS *****/
-    type Selector<T> = (config: FullObjectRouteConfig) => T
-    type Select = <T = RouteConfig>(selector?: Selector<T>) => NoInfer<T>
-
+  isRouteActive<This extends RouteOptions | PathObject = PathObject>(options: This): Result {
     const routeConfig = routes[(options as PathObject)?.path];
     const castedRouteConfig = castToObjectRouteconfig(routeConfig ?? false)
-
-    /***** FUNCTIONS *****/
-    // @ts-ignore
-    const select: Select = (selector) => {
-      if (!selector)
-        return castedRouteConfig
-      else
-        return selector(castedRouteConfig)
-    }
 
     /***** RESULTS *****/
     return {
@@ -108,7 +100,12 @@ export const routeConfig = {
        * Allow the user to return the route config object and perform manual actions based on the result. This is useful for
        * cases where the user does not want to perform a standard redirect but needs to know whether or not the route is active.
        */
-      select,
-    }
+      select(selector) {
+        if (!selector)
+          return castedRouteConfig as any
+        else
+          return selector(castedRouteConfig) as any
+      },
+    };
   }
 }

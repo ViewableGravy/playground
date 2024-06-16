@@ -15,7 +15,7 @@ const routeTree = rootRoute.addChildren([
 export function createRouter() {
   return createTanstackRouter({ 
     routeTree,
-    defaultPreload: 'intent'
+    defaultPreload: 'intent',
   })
 }
 
