@@ -27,7 +27,7 @@ const routes: Record<RoutePaths, RouteConfig> = {
   "/": true,
   "/preview-card": true,
   "/test": {
-    active: false,
+    active: true,
     redirect: "/",
   },
 }

@@ -8,6 +8,7 @@ export const testRoute = createRoute({
   getParentRoute: () => AppRoute,
   component: () => <div>Test</div>,
   beforeLoad() {
-    routeConfig.isRouteActive(this).throw()
-  }
+    console.log(routeConfig.isRouteActive(this).select())
+  },
+  
 })

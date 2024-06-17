@@ -79,3 +79,21 @@
     box-shadow: 0px 0px 6px #00d0ff75;
   }
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.transition {
+  transition: all 0.2s;
+  opacity: 1;
+
+  &--out {
+    opacity: 0;
+  }
+}
